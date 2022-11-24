@@ -14,4 +14,4 @@ sudo python autocrack.py
 - Python 3
 
 
-* Puede funcionar en distribuciones Debian, Ubuntu y otros, aunque no ha sido probado.
+*Puede funcionar en distribuciones Debian, Ubuntu y otros, aunque no ha sido probado.
