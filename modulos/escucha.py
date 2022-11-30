@@ -1,9 +1,7 @@
 import os
-
-c = input("Canal > ")
-bssid = input("AP MAC > ")
-log = input("Nombre del log > ")
-interfaz = input("Interfaz > ")
-
-os.system("airodump-ng --channel " + c + " --bssid " + bssid + " --write " + log + " " + interfaz)
-
+import sys
+from comun import *
+key = sys.argv[1]
+interfaz = leer(0, key)
+os.system("clear")
+os.system("airodump-ng " + interfaz)

@@ -2,6 +2,12 @@ import os
 import subprocess
 import time
 
+from modulos.comun import *
+
+# Genero la clave e instancio la clase
+key = Fernet.generate_key()
+
+# Averiguo en qué directorio estoy
 directorioTrabajo = os.getcwd()
 def abrir(script): 
 	subprocess.Popen(['qterminal', '-e', script])
@@ -35,17 +41,18 @@ def main(msg, inter):
 	os.system("clear")
 	print("===========================================")
 	print("            1 - Escucha.")
-	print("            2 - Desautenticación.")
-	print("            3 - Captura.")
-	print("            4 - Vistazo.")
+	print("            2 - Captura.")
+	print("            3 - Desautenticación.")
+	print("            4 - Crack.")
 	print("            0 - Salir.")
 	print("===========================================")
 	print(msg)
+	print(str(key))
 	opcion = input("\n >>> ")
 	if opcion == "0":
 		salir(inter);
 	elif opcion == "1":
-		script = 'python ' + directorioTrabajo + '/modulos/escucha.py'
+		script = 'python ' + directorioTrabajo + '/modulos/escucha.py ' + str(key)
 		try:
 			abrir(script)
 		except:
@@ -53,24 +60,23 @@ def main(msg, inter):
 		finally:
 			main("Abierto script de escucha.",inter)
 	elif opcion == "2":
-		script = 'python ' + directorioTrabajo + '/modulos/desautenticacion.py'
-		try:
-			abrir(script)
-		except:
-			main("No se pudo ejecutar script de desautenticación.",inter)
-		finally:
-			main("Abierto script de desautenticación.",inter)
-		
-	elif opcion == "3":
-		script = 'python ' + directorioTrabajo + '/modulos/captura.py'
+		script = 'python ' + directorioTrabajo + '/modulos/captura.py ' + key
 		try:
 			abrir(script)
 		except:
 			main("No se pudo ejecutar script de captura.",inter)
 		finally:
 			main("Abierto script de captura.",inter)
+	elif opcion == "3":
+		script = 'python ' + directorioTrabajo + '/modulos/desautenticacion.py ' + key
+		try:
+			abrir(script)
+		except:
+			main("No se pudo ejecutar script de desautenticación.",inter)
+		finally:
+			main("Abierto script de desautenticación.",inter)
 	elif opcion == "4":
-		script = 'python ' + directorioTrabajo + '/modulos/vistazo.py'
+		script = 'python ' + directorioTrabajo + '/modulos/crack.py ' + key
 		try:
 			abrir(script)
 		except:
@@ -86,6 +92,7 @@ if os.geteuid() != 0:
 os.system("airmon-ng check kill")
 os.system("airmon-ng")
 interfaz = input("\n\nIntroduce la interfaz > ")
+escribir("\n" + str(encriptar(interfaz,key)))
 os.system("airmon-ng start " + interfaz)
 main("",interfaz)
 
