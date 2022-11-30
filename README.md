@@ -12,6 +12,7 @@ sudo python autocrack.py
 - Kali Linux*
 - Aircrack-ng
 - Python 3
+- Paquete "cryptography" de python [Guia de instalación](https://cryptography.io/en/latest/installation/)
 
 
 *Puede funcionar en distribuciones Debian, Ubuntu y otros, aunque no ha sido probado.
